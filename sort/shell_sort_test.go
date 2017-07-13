@@ -6,5 +6,5 @@ import (
 
 
 func TestShellSort(t *testing.T) {
-	tSortBase(t, ShellSort)
+	testSortFunc(t, ShellSort)
 }

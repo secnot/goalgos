@@ -4,6 +4,8 @@ package altsort
 import (
 	"math"
 	"sort"
+	"time"
+	"math/rand"
 	"testing"
 )
 
@@ -19,7 +21,7 @@ type SortFunc func(data SortInterface)
 
 
 
-func tSortBase(t *testing.T, sortf SortFunc) {
+func testSortBase(t *testing.T, sortf SortFunc) {
 	
 	// Copy test arrays
 	iunsorted1 := ints
@@ -54,11 +56,66 @@ func tSortBase(t *testing.T, sortf SortFunc) {
 	}
 }
 
+func testSortEmpty(t *testing.T, sortf SortFunc) {
+	sortf(IntSlice([]int{}))
+	sortf(Float64Slice([]float64{}))
+	sortf(StringSlice([]string{}))
+}
 
-func tSortFunc(t *testing.T, sortf SortFunc) {
-	tSortBase(t, sortf)
-	//TODO: tSortEmpty(t, sortf)
-	//TODO: tSortRandInt(t, sortf)
-	//TODO: tSortRandFloat64(t, sortf)
-	//TODO: tSortRandString(t, sortf)
+
+func testSortRandInt(t *testing.T, sortf SortFunc) {
+	
+	randomIntSlice := func (length int) []int {
+		s := rand.NewSource(time.Now().UnixNano())
+		r := rand.New(s)
+
+		slice := []int{}
+		for i := 0; i < length; i++ {
+			slice = append(slice, r.Intn(1000000))
+		}
+		return slice
+	}
+
+	for l := 1; l < 100; l++ {
+		random := randomIntSlice(l)
+		sortf(IntSlice(random))
+		if !IsSorted(IntSlice(random)) {
+			t.Error("Random ints weren't sorted")
+			t.Error("\t", random)
+		}
+	}
+}
+
+
+func testSortRandFloat64(t *testing.T, sortf SortFunc) {
+
+	randomFloat64Slice := func (length int) []float64 {
+		s := rand.NewSource(time.Now().UnixNano())
+		r := rand.New(s)
+
+		slice := []float64{}
+		for i := 0; i < length; i++ {
+			slice = append(slice, r.Float64()*1000000)
+		}
+		return slice
+	}
+
+	for l := 1; l < 100; l++ {
+		random := randomFloat64Slice(l)
+		sortf(Float64Slice(random))
+		if !IsSorted(Float64Slice(random)) {
+			t.Error("Random floats weren't sorted")
+			t.Error("\t", random)
+		}
+	}
+}
+
+
+func testSortFunc(t *testing.T, sortf SortFunc) {
+	testSortBase(t, sortf)
+	testSortEmpty(t, sortf)
+	for i := 0; i < 10; i++ {
+		testSortRandInt(t, sortf)
+		testSortRandFloat64(t, sortf)
+	}
 }
