@@ -6,5 +6,5 @@ import (
 
 
 func TestSelectSort(t *testing.T) {
-	tSortBase(t, SelectSort)
+	testSortFunc(t, SelectSort)
 }
