@@ -9,7 +9,6 @@ type element struct {
 
 	next *element
 	prev *element
-
 }
 
 // Linked list
@@ -21,15 +20,13 @@ type Llist struct {
 	length int
 }
 
-
 type Iterator struct {
 	// element currently being iterated over
 	current *element
 
-	// 
+	//
 	list *Llist
 }
-
 
 // insert new element after another one
 func (l *Llist) insert(elm, newElm *element) {
@@ -48,20 +45,16 @@ func (l *Llist) remove(elm *element) interface{} {
 	return elm.Value
 }
 
-
-
-func NewLlist() *Llist{
+func NewLlist() *Llist {
 	list := &Llist{}
 	list.root.next = &list.root
 	list.root.prev = &list.root
 	return list
 }
 
-
-func (l *Llist) Len() int{
+func (l *Llist) Len() int {
 	return l.length
 }
-
 
 // firstElement returns the first element in the list
 func (l *Llist) firstElement() *element {
@@ -84,7 +77,7 @@ func (l *Llist) First() (value interface{}, ok bool) {
 	first := l.firstElement()
 	if first != nil {
 		return first.Value, true
-	} 
+	}
 	return nil, false
 }
 
@@ -129,7 +122,7 @@ func (l *Llist) Prepend(value interface{}) {
 func (l *Llist) String() string {
 	buffer := make([]string, l.Len())
 	iter := l.Iter()
-	
+
 	current := 0
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
 		buffer[current] = fmt.Sprintf("%v,", v)
@@ -141,7 +134,7 @@ func (l *Llist) String() string {
 
 // Return iterator to iterate over Linked List
 func (l *Llist) Iter() *Iterator {
-	iter := &Iterator{list:l, current:&l.root}
+	iter := &Iterator{list: l, current: &l.root}
 	return iter
 }
 
@@ -159,7 +152,7 @@ func (i *Iterator) Next() (value interface{}, ok bool) {
 	return i.current.Value, true
 }
 
-// Delete the element currently being iterated 
+// Delete the element currently being iterated
 func (i *Iterator) Delete() {
 	if i.current == nil {
 		return
@@ -179,7 +172,6 @@ func (i *Iterator) InsertAfter(value interface{}) {
 	}
 }
 
-
 // InsertBefore adds a value before the element being iterated
 func (i *Iterator) InsertBefore(value interface{}) {
 	if i.current == nil {
@@ -191,10 +183,9 @@ func (i *Iterator) InsertBefore(value interface{}) {
 	}
 }
 
-
 // Set current element value while iterating
 func (i *Iterator) Set(value interface{}) {
-	if i.current == nil && i.current == &i.list.root{
+	if i.current == nil && i.current == &i.list.root {
 		return
 	}
 	i.current.Value = value
