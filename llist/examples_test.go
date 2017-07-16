@@ -1,6 +1,5 @@
 package llist
 
-
 import (
 	"fmt"
 )
@@ -18,18 +17,17 @@ func ExampleIterator() {
 	// Delete odd values, add 1000 to the rest
 	iter := list.Iter()
 	for value, ok := iter.Next(); ok; value, ok = iter.Next() {
-		if value.(int) % 2 == 1 {
+		if value.(int)%2 == 1 {
 			iter.Delete()
 		} else {
-			iter.Set(1000+value.(int))
+			iter.Set(1000 + value.(int))
 		}
 	}
-	fmt.Println(list) 
-	
+	fmt.Println(list)
+
 	// Output:
 	// Llist[1002, 1004,]
 }
-
 
 // Basic Linked List operations
 func ExampleLlist() {
@@ -43,7 +41,7 @@ func ExampleLlist() {
 	fmt.Println(list) // > Llist[5, 1, 4,]
 
 	// Return the values of First and Last elements (peek)
-	list.Last() // > 4, true
+	list.Last()  // > 4, true
 	list.First() // > 5, true
 
 	// Pop last and first elements returning their value

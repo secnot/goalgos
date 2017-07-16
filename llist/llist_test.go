@@ -1,27 +1,25 @@
 package llist
 
 import (
-	"testing"
 	"fmt"
+	"testing"
 )
-
 
 // Compare int slice agains linked list values
 func hasValues(t *testing.T, list *Llist, values []int) {
-	
+
 	var llistValues []int
 	iter := list.Iter()
 	for value, ok := iter.Next(); ok; value, ok = iter.Next() {
-		llistValues = append(llistValues,  value.(int))
+		llistValues = append(llistValues, value.(int))
 	}
 
-
 	if len(llistValues) != len(values) {
-		t.Error("LikedList and reference values aren't of same lenght", 
+		t.Error("LikedList and reference values aren't of same lenght",
 			len(llistValues), len(values))
 		return
 	}
-		
+
 	for n, val := range values {
 		if llistValues[n] != val {
 			t.Error("Reference values and linked list contents differ:")
@@ -66,7 +64,6 @@ func initLlist(list *Llist, size int) {
 		list.Append(i)
 	}
 }
-
 
 // Test Basic operations
 func TestBase(t *testing.T) {
@@ -113,7 +110,7 @@ func TestBase(t *testing.T) {
 	list.Append(101)
 	hasLast(t, list, 101)
 	hasFirst(t, list, 100)
-	
+
 	list.Prepend(102)
 	hasLast(t, list, 101)
 	hasFirst(t, list, 102)
@@ -147,7 +144,7 @@ func TestIterDelete(t *testing.T) {
 	initLlist(list, 10)
 	iter := list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 1 {
+		if v.(int)%2 == 1 {
 			iter.Delete()
 		}
 	}
@@ -155,11 +152,11 @@ func TestIterDelete(t *testing.T) {
 
 	// Delete even values
 	list = NewLlist()
-	initLlist(list, 10)	
-	
+	initLlist(list, 10)
+
 	iter = list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 0 {
+		if v.(int)%2 == 0 {
 			iter.Delete()
 		}
 	}
@@ -182,13 +179,13 @@ func TestIterDelete(t *testing.T) {
 	list.Prepend(33)
 	hasValues(t, list, []int{33, 44, 66})
 
-	// Delete even values twice	
+	// Delete even values twice
 	list = NewLlist()
 	initLlist(list, 10)
 
 	iter = list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 0 {
+		if v.(int)%2 == 0 {
 			iter.Delete()
 			iter.Delete()
 		}
@@ -198,8 +195,8 @@ func TestIterDelete(t *testing.T) {
 	list.Prepend(44)
 	list.Prepend(33)
 	hasValues(t, list, []int{33, 44, 1, 3, 5, 7, 9, 66})
-	
-	// Delete all values twice	
+
+	// Delete all values twice
 	list = NewLlist()
 	initLlist(list, 10)
 
@@ -216,21 +213,20 @@ func TestIterDelete(t *testing.T) {
 
 }
 
-
 // Test adding values after the current while iterating
 func TestIterInsertAfter(t *testing.T) {
-	
+
 	// Add one value after each odd one
 	list := NewLlist()
 	initLlist(list, 6)
 
 	iter := list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 1 {
-			iter.InsertAfter(v.(int)+101)
+		if v.(int)%2 == 1 {
+			iter.InsertAfter(v.(int) + 101)
 		}
 	}
-	hasValues(t, list, []int{0, 1, 102,  2, 3, 104, 4, 5, 106}) 
+	hasValues(t, list, []int{0, 1, 102, 2, 3, 104, 4, 5, 106})
 
 	// Add two values after each odd one
 	list = NewLlist()
@@ -238,33 +234,32 @@ func TestIterInsertAfter(t *testing.T) {
 
 	iter = list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 1 {
-			iter.InsertAfter(v.(int)+101)
-			iter.InsertAfter(v.(int)+201)
+		if v.(int)%2 == 1 {
+			iter.InsertAfter(v.(int) + 101)
+			iter.InsertAfter(v.(int) + 201)
 		}
 	}
-	hasValues(t, list, []int{0, 1, 202, 102, 2, 3, 204, 104, 4, 5, 206, 106}) 
+	hasValues(t, list, []int{0, 1, 202, 102, 2, 3, 204, 104, 4, 5, 206, 106})
 
 	// Add values to finished iter
 	iter.InsertAfter(7)
 	iter.InsertAfter(8)
-	hasValues(t, list, []int{0, 1, 202, 102, 2, 3, 204, 104, 4, 5, 206, 106, 7, 8}) 
+	hasValues(t, list, []int{0, 1, 202, 102, 2, 3, 204, 104, 4, 5, 206, 106, 7, 8})
 }
 
-
 // Test adding values before the current one while iterating
-func TestIterInsertBefore(t *testing.T) {	
+func TestIterInsertBefore(t *testing.T) {
 	// Add one value after each odd one
 	list := NewLlist()
 	initLlist(list, 6)
 
 	iter := list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 1 {
-			iter.InsertBefore(v.(int)+101)
+		if v.(int)%2 == 1 {
+			iter.InsertBefore(v.(int) + 101)
 		}
 	}
-	hasValues(t, list, []int{0, 102, 1, 2, 104, 3, 4, 106, 5}) 
+	hasValues(t, list, []int{0, 102, 1, 2, 104, 3, 4, 106, 5})
 
 	// Add two values after each odd one
 	list = NewLlist()
@@ -272,24 +267,23 @@ func TestIterInsertBefore(t *testing.T) {
 
 	iter = list.Iter()
 	for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-		if v.(int) % 2 == 1 {
-			iter.InsertBefore(v.(int)+101)
-			iter.InsertBefore(v.(int)+201)
+		if v.(int)%2 == 1 {
+			iter.InsertBefore(v.(int) + 101)
+			iter.InsertBefore(v.(int) + 201)
 		}
 	}
-	hasValues(t, list, []int{0, 102, 202, 1, 2, 104, 204, 3, 4, 106, 206, 5}) 
+	hasValues(t, list, []int{0, 102, 202, 1, 2, 104, 204, 3, 4, 106, 206, 5})
 
 	// Add values to finished iter
 	iter.InsertBefore(7)
 	iter.InsertBefore(8)
-	hasValues(t, list, []int{0, 102, 202, 1, 2, 104, 204, 3, 4, 106, 206, 5, 7, 8}) 
+	hasValues(t, list, []int{0, 102, 202, 1, 2, 104, 204, 3, 4, 106, 206, 5, 7, 8})
 }
-
 
 // Test inserting and deleting elements while iterating over the linked list
 func TestIterMixedInsertDelete(t *testing.T) {
-	
-	// InsertBefore, Delete, Delete, InsertAfter, Delete, InsertBefore 
+
+	// InsertBefore, Delete, Delete, InsertAfter, Delete, InsertBefore
 	for length := 0; length < 100; length++ {
 		list := NewLlist()
 		initLlist(list, length)
@@ -298,7 +292,7 @@ func TestIterMixedInsertDelete(t *testing.T) {
 
 		iter := list.Iter()
 		for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-			if v.(int) % 2 == 0 {
+			if v.(int)%2 == 0 {
 				iter.InsertBefore(1011)
 				iter.Delete()
 				iter.Delete()
@@ -325,7 +319,7 @@ func TestIterMixedInsertDelete(t *testing.T) {
 
 		iter := list.Iter()
 		for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-			if v.(int) % 2 == 1 {
+			if v.(int)%2 == 1 {
 				iter.InsertBefore(1012)
 				iter.Delete()
 				iter.Delete()
@@ -344,7 +338,6 @@ func TestIterMixedInsertDelete(t *testing.T) {
 	}
 }
 
-
 // Test setting elements value while iterating
 func TestIterSet(t *testing.T) {
 
@@ -352,12 +345,12 @@ func TestIterSet(t *testing.T) {
 	for length := 0; length < 100; length++ {
 		list := NewLlist()
 		initLlist(list, length)
-	
+
 		// Iterate and modify linked list
 		iter := list.Iter()
 		for v, ok := iter.Next(); ok; v, ok = iter.Next() {
-			if v.(int) %2 == 1 {
-				iter.Set(v.(int)+1000)
+			if v.(int)%2 == 1 {
+				iter.Set(v.(int) + 1000)
 			} else {
 				iter.Delete()
 			}
@@ -366,7 +359,7 @@ func TestIterSet(t *testing.T) {
 		// Construct expected result
 		result := make([]int, 0)
 		for i := 0; i < length; i++ {
-			if i % 2 == 1 {
+			if i%2 == 1 {
 				result = append(result, i+1000)
 			}
 		}
@@ -378,27 +371,27 @@ func TestIterSet(t *testing.T) {
 
 // Test appending and prepending to list while iterating
 func TestIterMixedDeleteAppend(t *testing.T) {
-	
+
 	// Append
 	for length := 0; length < 100; length++ { // Llist length
 		for pos := 0; pos < length; pos++ { // Position where append is called
 
 			list := NewLlist()
 			initLlist(list, length)
-			
+
 			iter := list.Iter()
 			current := 0
-			for _, ok:= iter.Next(); ok; _, ok = iter.Next(){
+			for _, ok := iter.Next(); ok; _, ok = iter.Next() {
 				if current == pos {
 					iter.Delete()
 					list.Append(2000)
 				}
 				current++
 			}
-			
+
 			// Expected result
-			result:= make([]int, 0)
-			for i:= 0; i<length; i++ {
+			result := make([]int, 0)
+			for i := 0; i < length; i++ {
 				if i != pos {
 					result = append(result, i)
 				}
@@ -406,8 +399,8 @@ func TestIterMixedDeleteAppend(t *testing.T) {
 			result = append(result, 2000)
 			hasValues(t, list, result)
 		}
-		
-	}	
+
+	}
 
 	// Prepend
 	for length := 0; length < 100; length++ { // Llist length
@@ -415,7 +408,7 @@ func TestIterMixedDeleteAppend(t *testing.T) {
 
 			list := NewLlist()
 			initLlist(list, length)
-			
+
 			iter := list.Iter()
 			current := 0
 			for _, ok := iter.Next(); ok; _, ok = iter.Next() {
@@ -425,19 +418,18 @@ func TestIterMixedDeleteAppend(t *testing.T) {
 				}
 				current++
 			}
-			
+
 			// Expected result
-			result:= make([]int, 0)
+			result := make([]int, 0)
 			result = append(result, 2000)
-			for i:= 0; i<length; i++ {
+			for i := 0; i < length; i++ {
 				if i != pos {
 					result = append(result, i)
 				}
 			}
 			hasValues(t, list, result)
 		}
-		
+
 	}
 
 }
-
