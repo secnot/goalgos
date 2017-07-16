@@ -9,7 +9,7 @@ import (
 
 func ExampleIter() {
 
-	list := Llist.NewLlist()
+	list := llist.NewLlist()
 	list.Append(1)
 	list.Append(2)
 	list.Append(3)
@@ -28,6 +28,6 @@ func ExampleIter() {
 	fmt.Println(list) 
 	
 	// Output:
-	// Llist[1002, 1004]
+	// Llist[1002, 1004,]
 }
 	

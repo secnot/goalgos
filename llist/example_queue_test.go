@@ -9,7 +9,7 @@ import (
 
 func ExampleQueue() {
 	// Create an empty list
-	list := Llist.NewLlist()
+	list := llist.NewLlist()
 
 	// Append elements at the end and start or the list
 	list.Append(1)
