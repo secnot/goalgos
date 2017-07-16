@@ -1,3 +1,4 @@
+// A doubly linked list for easy implementation of LIFO/FIFO, stacks, and queues.
 package llist
 
 import "fmt"

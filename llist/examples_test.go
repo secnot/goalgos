@@ -5,8 +5,8 @@ import (
 	"fmt"
 )
 
-
-func ExampleIter() {
+// Iterating over the linked list while deleting and changing elements
+func ExampleIterator() {
 
 	list := NewLlist()
 	list.Append(1)
@@ -31,7 +31,8 @@ func ExampleIter() {
 }
 
 
-func ExampleQueue() {
+// Basic Linked List operations
+func ExampleLlist() {
 	// Create an empty list
 	list := NewLlist()
 
