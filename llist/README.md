@@ -1,4 +1,4 @@
-# Linked List [![Build Status](https://travis-ci.org/secnot/goalgos/llist.svg?branch=master)](https://travis-ci.org/secnot/goalgos/llist) [![GoDoc](https://godoc.org/github.com/secnot/goalgos/llist?status.svg)](http://godoc.org/github.com/secnot/goalgos/llist)
+# Linked List [![Build Status](https://travis-ci.org/secnot/goalgos.svg?branch=master)](https://travis-ci.org/secnot/goalgos) [![GoDoc](https://godoc.org/github.com/secnot/goalgos/llist?status.svg)](http://godoc.org/github.com/secnot/goalgos/llist)
 
 A doubly linked list written in Go that makes easier to implement LIFO/FIFO, 
 stacks, and queues than the builtin package "container/list", while still
