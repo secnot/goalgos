@@ -4,7 +4,7 @@ package llist_test
 import (
 	"fmt"
 	"github.com/secnot/goalgos/llist"
-}
+)
 
 
 func ExampleIter() {

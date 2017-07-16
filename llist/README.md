@@ -52,7 +52,7 @@ func main() {
 And to iterate over the linked list to delete, modify, and insert elements:
 
 
-```
+```go
 package main
 
 import (
