@@ -12,6 +12,6 @@ go:
 
 env:
   - TEST_DIR=llist
-  - TEST_DIR=sortin
+  - TEST_DIR=sorting
 
 script: cd $TEST_DIR && go test -v --race
